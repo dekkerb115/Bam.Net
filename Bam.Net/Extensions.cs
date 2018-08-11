@@ -316,6 +316,11 @@ namespace Bam.Net
             return GetNextFileName(path, out int num);
         }
 
+        public static string GetNextFileName(this string path, out int num)
+        {
+            return GetNextFileName(path, null, out num);
+        }
+
         /// <summary>
         /// If the specified file exists, a new path with 
         /// an underscore and a number appended will be 
@@ -323,8 +328,9 @@ namespace Bam.Net
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static string GetNextFileName(this string path, out int num)
+        public static string GetNextFileName(this string path, Func<int, string, string, string> namer, out int num)
         {
+            namer = namer ?? ((_i, f, e) => $"{f}_{_i}{e}");
             FileInfo file = new FileInfo(path);
             DirectoryInfo dir = file.Directory;
             string extension = Path.GetExtension(path);
@@ -335,7 +341,7 @@ namespace Bam.Net
             while (File.Exists(currentPath))
             {
                 i++;
-                string nextFile = $"{fileName}_{i}{extension}";
+                string nextFile = namer(i, fileName, extension);
                 currentPath = Path.Combine(dir.FullName, nextFile);
                 num = i;
             }

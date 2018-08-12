@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Bam.Net.Data.Repositories
 {
+    /// <summary>
+    /// The base class to extend for any class whose identity is determined
+    /// by multiple properties addorned with CompositeKeyAttribute.
+    /// </summary>
+    /// <seealso cref="Bam.Net.Data.Repositories.AuditRepoData" />
+    /// <seealso cref="Bam.Net.Data.Repositories.IHasKeyHash" />
     [Serializable]
     public abstract class KeyHashAuditRepoData : AuditRepoData, IHasKeyHash
     {
@@ -50,17 +56,11 @@ namespace Bam.Net.Data.Repositories
 
         public override bool Equals(object obj)
         {
-            KeyHashAuditRepoData o = obj as KeyHashAuditRepoData;
-            if(o != null)
+            if (obj is KeyHashAuditRepoData o)
             {
                 return o.GetHashCode().Equals(GetHashCode());
             }
             return false;
-        }
-
-        public virtual T Save<T>(IRepository repo) where T : RepoData, new()
-        {
-            return QueryFirstOrDefault<T>(repo, CompositeKeyProperties);
         }
     }
 }

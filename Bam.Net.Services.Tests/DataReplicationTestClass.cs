@@ -1,0 +1,20 @@
+﻿using Bam.Net.Data.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Bam.Net.Services.Tests
+{
+    public class DataReplicationTestClass: KeyHashAuditRepoData
+    {
+        [CompositeKey]
+        public string FirstName { get; set; }
+        [CompositeKey]
+        public string LastName { get; set; }
+        public int Age { get; set; }
+        [CompositeKey]
+        public DateTime BirthDate { get; set; }
+    }
+}

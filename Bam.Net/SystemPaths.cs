@@ -16,7 +16,7 @@ namespace Bam.Net
         {
             Root = Paths.Root;
             PubRoot = Paths.PubRoot;
-            BamDrive = Paths.BamDrive;
+            SystemDrive = Paths.SystemDrive;
             WindowsBamDrive = Paths.WindowsBamDrive;
             Apps = Paths.Apps;
             Local = Paths.Local;
@@ -39,7 +39,7 @@ namespace Bam.Net
 
         public string Root { get; set; }
         public string PubRoot { get; set; }
-        public string BamDrive { get; set; }
+        public string SystemDrive { get; set; }
         public string WindowsBamDrive { get; set; }
 
         public string Apps { get; set; }

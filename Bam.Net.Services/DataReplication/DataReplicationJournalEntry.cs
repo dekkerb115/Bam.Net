@@ -1,4 +1,5 @@
 ﻿using Bam.Net.Data;
+using Bam.Net.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,28 +17,28 @@ namespace Bam.Net.Services.DataReplication
         /// <value>
         /// The type.
         /// </value>
-        public int Type { get; set; }
+        public long TypeId { get; set; }
 
+        public long Id { get; set; }
         /// <summary>
         /// Gets or sets the sequence number.
         /// </summary>
         /// <value>
         /// The sequence number.
         /// </value>
-        public int Seq { get; set; }
-        public string Property { get; set; }
+        public long Seq { get; set; }
+        public long PropertyId { get; set; }
         public string Value { get; set; }
 
-        public static IEnumerable<DataReplicationJournalEntry> FromInstance(object instance)
+        public static IEnumerable<DataReplicationJournalEntry> FromInstance(KeyHashAuditRepoData instance)
         {
-            object dto = DataExtensions.ToJsonSafe(instance);
-            PropertyInfo[] properties = dto.GetType().GetProperties();
-            foreach (PropertyInfo prop in properties)
+            Args.ThrowIfNull(instance, "instance");
+            long typeId = DataReplicationTypeMap.GetTypeId(instance, out object dynamicInstance, out Type dynamicType);
+            foreach (PropertyInfo prop in dynamicType.GetProperties())
             {
-
+                yield return new DataReplicationJournalEntry { TypeId = typeId, Id = instance.GetLongKeyHash(), PropertyId = DataReplicationTypeMap.GetPropertyId(prop, out string ignore), Value = prop.GetValue(dynamicInstance)?.ToString() };
             }
-
-            throw new NotImplementedException();
         }
+
     }
 }

@@ -42,8 +42,10 @@ namespace Bam.Net.Services
                 .For<DaoRepository>().Use(repo)
                 .For<ICatalogService>().Use<CatalogService>()
                 .For<CatalogService>().Use<CatalogService>()
+                .For<SystemPaths>().Use(DefaultDataSettingsProvider.GetPaths())
                 .For<IDataDirectoryProvider>().Use(DefaultDataSettingsProvider.Current);
 
+            
             reg.CombineWith(coreReg);
 
             return reg;

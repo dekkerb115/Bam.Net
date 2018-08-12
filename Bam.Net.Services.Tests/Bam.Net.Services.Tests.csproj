@@ -110,6 +110,7 @@
     <Compile Include="CatalogServiceTests.cs" />
     <Compile Include="CommandServiceTests.cs" />
     <Compile Include="ConsoleActions.cs" />
+    <Compile Include="DataReplicationTestClass.cs" />
     <Compile Include="DataReplicationTests.cs" />
     <Compile Include="DocumentationServiceTests.cs" />
     <Compile Include="EventSourceTests.cs" />

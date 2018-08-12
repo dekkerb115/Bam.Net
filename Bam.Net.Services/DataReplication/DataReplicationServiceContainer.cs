@@ -89,9 +89,13 @@ namespace Bam.Net.Services.DataReplication
         // --
 
         public static ServiceRegistry Create()
-        {
+        {            
             ServiceRegistry registry = ClientServiceRegistryContainer.Create();
-            registry.For<DataReplicationJournal>().Use<DataReplicationJournal>();
+            registry
+                .For<SequenceFile>().Use<SequenceFile>()
+                .For<ISequenceProvider>().Use<FileSequenceProvider>()
+                .For<DataReplicationTypeMap>().Use<DataReplicationTypeMap>()
+                .For<DataReplicationJournal>().Use<DataReplicationJournal>();                
 
             return registry;
         }

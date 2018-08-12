@@ -243,6 +243,8 @@
     <Compile Include="DataReplication\Data\Generated_Dao\WriteEventQuery.cs" />
     <Compile Include="DataReplication\Data\Generated_Dao\WriteEventWrapper.cs" />
     <Compile Include="DataReplication\Data\Operation.cs" />
+    <Compile Include="DataReplication\FileSequenceProvider.cs" />
+    <Compile Include="DataReplication\ISequenceProvider.cs" />
     <Compile Include="DataReplication\ISessionProvider.cs" />
     <Compile Include="DataReplication\ObjectIdentifier.cs" />
     <Compile Include="DataReplication\OperationIntent.cs" />
@@ -254,6 +256,7 @@
     <Compile Include="DataReplication\Data\UpdateOperation.cs" />
     <Compile Include="DataReplication\Data\WriteEvent.cs" />
     <Compile Include="DataReplication\Data\WriteOperation.cs" />
+    <Compile Include="DataReplication\SequenceFile.cs" />
     <Compile Include="Events\EventMessage.cs" />
     <Compile Include="Events\EventSourceService.cs" />
     <Compile Include="Events\EventSourceServiceArgs.cs" />

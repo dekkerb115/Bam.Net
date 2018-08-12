@@ -191,7 +191,7 @@ namespace Bam.Net
                 return sr.ReadToEnd();
             }
         }
-
+        
         public static T Try<T>(this Func<T> toTry)
         {
             return Try<T>(toTry, out Exception ignore);
@@ -3708,6 +3708,17 @@ namespace Bam.Net
             object instance = ctor.Invoke(null);
             instance.CopyValues(row);
             return instance;
+        }
+
+        public static dynamic ToDynamic(this object instance, Func<PropertyInfo, bool> propertyPredicate, out Type dynamicType)
+        {
+            Type instanceType = instance.GetType();
+            string newTypeName = "ValuesOf.{0}.{1}"._Format(instanceType.Namespace, instanceType.Name);
+            dynamicType = instance.ToDynamicType(newTypeName, propertyPredicate, out AssemblyBuilder ignore);
+            ConstructorInfo ctor = dynamicType.GetConstructor(new Type[] { });
+            object filteredProperties = ctor.Invoke(null);
+            DefaultConfiguration.CopyProperties(instance, filteredProperties);
+            return filteredProperties;
         }
 
         /// <summary>
